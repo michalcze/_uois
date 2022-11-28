@@ -31,6 +31,7 @@ services:
       - gql_survey
       - gql_ug
       - gql_workflow
+      - gql_empty
     healthcheck:
       # definice, umoznujici provest test, zda je kontejner v poradku (vsimnete si portu a srovnejte s portem v environment)
       test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:3000/gql/ || exit 1"
@@ -39,9 +40,9 @@ services:
       start_period: 60s
       timeout: 10s
     restart: on-failure:3 # nedojde k restartu pokud je kontejner "unhealthy", maximalne 3 pokusy
-    # ports: #v deploymentu by nebylo zadne mapovani portu
-    #   # vnejsi port : port, kde sluzbu poskytuje kontejner
-    #   - 31121:3000
+    ports: #v deploymentu by nebylo zadne mapovani portu
+      - 31121:3000 # vnejsi port : port, kde sluzbu poskytuje kontejner
+
 
   gql_ug:
     image: gql_ug

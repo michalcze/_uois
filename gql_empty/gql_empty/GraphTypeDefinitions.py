@@ -17,6 +17,20 @@ def AsyncSessionFromInfo(info):
 #
 # priklad rozsireni UserGQLModel
 #
+from gql_empty.GraphResolvers import resolve_theses_model_by_id, resolve_theses_model_page
+@strawberryA.federation.type(keys=["id"], description="""Entity containing theses""")
+class ThesesGQLModel:
+    @classmethod
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+        result = await resolve_theses_model_by_id (AsyncSessionFromInfo(info), id)
+        result._type_definition = cls._type_definition
+        return result
+    @strawberryA.field(description="""primary key""")
+    def id(self) -> strawberryA.ID:
+        return self.id
+    
+
+
 @strawberryA.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
     
@@ -42,6 +56,11 @@ class UserGQLModel:
 @strawberryA.type(description="""Type for query root""")
 class Query:
    
+    @strawberryA.field(description="""Finds theses by ID""")
+    async def theses_by_id(self, info: strawberryA.types.Info, id: uuid.UUID) -> Union[ThesesGQLModel, None]:
+        result = await resolve_theses_model_by_id(AsyncSessionFromInfo(info), id)
+        return result
+
     @strawberryA.field(description="""Finds an workflow by their id""")
     async def say_hello(self, info: strawberryA.types.Info, id: uuid.UUID) -> Union[str, None]:
         result = f'Hello {id}'

@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from uoishelpers.resolvers import create1NGetter, createEntityByIdGetter, createEntityGetter, createInsertResolver, createUpdateResolver
 from uoishelpers.resolvers import putSingleEntityToDb
 
-from gql_empty.DBDefinitions import BaseModel
+from gql_empty.DBDefinitions import BaseModel, ThesesModel
 
 ###########################################################################################################################
 #
@@ -17,6 +17,8 @@ from gql_empty.DBDefinitions import BaseModel
 #
 ###########################################################################################################################
 
+resolve_theses_model_page = createEntityGetter(ThesesModel)
+resolve_theses_model_by_id = createEntityByIdGetter(ThesesModel)
 
 
 ###########################################################################################################################

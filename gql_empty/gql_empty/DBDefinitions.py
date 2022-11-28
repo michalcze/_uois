@@ -22,6 +22,18 @@ def UUIDColumn(name=None):
 # zde definujte sve SQLAlchemy modely
 # je-li treba, muzete definovat modely obsahujici jen id polozku, na ktere se budete odkazovat
 #
+
+class ThesesModel(BaseModel):
+    __tablename__ = 'theses'
+
+    id = UUIDColumn()
+    name = Column(String)
+
+    lastchange = Column(DateTime, default=datetime.datetime.now)
+    #externalId = Column(BigInteger, index=True)
+
+    #sections = relationship('SectionModel',back_populates = 'form')
+
 ###########################################################################################################################
 
 
