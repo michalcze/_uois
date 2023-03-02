@@ -1,0 +1,1 @@
+6. Vytvořte datové struktury pro definici závěrečné práce (téma, vedoucí, konzultanti, typ práce, stav práce). U práce umožněte variabilní role (tzv. slovník rolí), navažte na 1. 

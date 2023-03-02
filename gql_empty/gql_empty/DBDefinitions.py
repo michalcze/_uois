@@ -22,17 +22,46 @@ def UUIDColumn(name=None):
 # zde definujte sve SQLAlchemy modely
 # je-li treba, muzete definovat modely obsahujici jen id polozku, na ktere se budete odkazovat
 #
+class UserModel(BaseModel):
+    __tablename__ = 'users'
+
+    id = UUIDColumn()
 
 class ThesesModel(BaseModel):
     __tablename__ = 'theses'
 
     id = UUIDColumn()
     name = Column(String)
+    abstract = Column(String)
+    date = Column(DateTime) #najít dattyp pro datum
+    assignment_name = Column(String)
+    assignment_description = Column(String)
+    assignment_goals = Column(String)
+
+    author_id = Column(ForeignKey("users.id"))
 
     lastchange = Column(DateTime, default=datetime.datetime.now)
+
+class RoleModel(BaseModel):
+    __tablename__ = 'theses_roles'
+
+    id = UUIDColumn()
+
+    user_id = Column(ForeignKey("users.id"))
+    roletype_id = Column(ForeignKey("theses_roletypes.id"))
+
+class RoleTypesModel(BaseModel):
+    __tablename__ = 'theses_roletypes'
+
+    id = UUIDColumn()
+
+    name = Column(String)
+
     #externalId = Column(BigInteger, index=True)
 
     #sections = relationship('SectionModel',back_populates = 'form')
+    #datum + zadání + název práce + autorovo FK UUID //thesis
+    #mimo nás - konzultanti(nová tabulka s UUID konzultantů + rolema(uuid-fk + uuid-fk) // role assignment slovník rolí(uuid - PK + name))  
 
 ###########################################################################################################################
 
