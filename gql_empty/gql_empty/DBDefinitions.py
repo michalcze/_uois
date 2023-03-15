@@ -27,13 +27,14 @@ class UserModel(BaseModel):
 
     id = UUIDColumn()
 
+
 class ThesesModel(BaseModel):
     __tablename__ = 'theses'
 
     id = UUIDColumn()
     name = Column(String)
     abstract = Column(String)
-    date = Column(DateTime) #najít dattyp pro datum
+    date = Column(datetime.datetime) #najít dattyp pro datum
     assignment_name = Column(String)
     assignment_description = Column(String)
     assignment_goals = Column(String)
@@ -62,7 +63,7 @@ class RoleTypesModel(BaseModel):
     #sections = relationship('SectionModel',back_populates = 'form')
     #datum + zadání + název práce + autorovo FK UUID //thesis
     #mimo nás - konzultanti(nová tabulka s UUID konzultantů + rolema(uuid-fk + uuid-fk) // role assignment slovník rolí(uuid - PK + name))  
-
+    #Role a RoleType gql modely jsou obsazeny!!
 ###########################################################################################################################
 
 
